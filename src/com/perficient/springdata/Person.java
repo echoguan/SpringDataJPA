@@ -2,30 +2,33 @@ package com.perficient.springdata;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-@Table(name="JPA_PERSONS")
 @Entity
+@Table(name="JPA_PERSONS")
 public class Person {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+
+	@Column(name = "lastName", nullable = false)
 	private String lastName;
 
+	@Column(name = "email")
 	private String email;
+
+	@Column(name = "birth")
 	private Date birth;
-	
-	private Address address;
-	
+
+	@Column(name="ADDR_ID")
 	private Integer addressId;
 
-	@GeneratedValue
-	@Id
+	@JoinColumn(name="ADDRESS_ID")
+	@ManyToOne
+	private Address address;
+
+
 	public Integer getId() {
 		return id;
 	}
@@ -58,7 +61,6 @@ public class Person {
 		this.birth = birth;
 	}
 	
-	@Column(name="ADDR_ID")
 	public Integer getAddressId() {
 		return addressId;
 	}
@@ -67,8 +69,6 @@ public class Person {
 		this.addressId = addressId;
 	}
 
-	@JoinColumn(name="ADDRESS_ID")
-	@ManyToOne
 	public Address getAddress() {
 		return address;
 	}

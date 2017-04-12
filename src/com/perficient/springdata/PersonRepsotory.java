@@ -30,7 +30,7 @@ public interface PersonRepsotory extends
 	JpaRepository<Person, Integer>,
 	JpaSpecificationExecutor<Person>, PersonDao{
 
-	//���� lastName ����ȡ��Ӧ�� Person
+	//Get Person by lastName
 	Person getByLastName(String lastName);
 
 	//WHERE lastName LIKE ?% AND id < ?
