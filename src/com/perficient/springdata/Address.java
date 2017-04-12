@@ -1,20 +1,21 @@
 package com.perficient.springdata;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Table(name="JPA_ADDRESSES")
 @Entity
 public class Address {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+
+	@Column(name = "province")
 	private String province;
+
+	@Column(name = "city")
 	private String city;
 
-	@GeneratedValue
-	@Id
 	public Integer getId() {
 		return id;
 	}
