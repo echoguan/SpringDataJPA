@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Table;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
@@ -40,6 +41,12 @@ public class SpringDataTest {
 		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 		personRepsotory = ctx.getBean(PersonRepsotory.class);
 		personService = ctx.getBean(PersonService.class);
+	}
+
+	@Test
+	public void testNamedQueries(){
+		List<Person> persons = personRepsotory.findByLastNameIsNative();
+		System.out.println(persons);
 	}
 	
 	@Test

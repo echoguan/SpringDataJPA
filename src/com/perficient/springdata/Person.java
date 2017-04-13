@@ -1,18 +1,24 @@
 package com.perficient.springdata;
 
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
 import java.util.Date;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name="JPA_PERSONS")
+//@NamedNativeQuery(name = "Person.findByLastNameIsNative",
+//		query = "SELECT * FROM JPA_PERSONS p WHERE p.last_name = 'aa'",
+//		resultClass = Person.class)
+//@EnableJpaRepositories(namedQueriesLocation = "src/")
 public class Person {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@Column(name = "lastName", nullable = false)
+	@Column(name = "last_name", nullable = false)
 	private String lastName;
 
 	@Column(name = "email")
