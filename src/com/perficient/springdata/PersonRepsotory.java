@@ -52,6 +52,8 @@ public interface PersonRepsotory extends
 	void updatePersonEmail(@Param("id") Integer id, @Param("email") String email);
 
 	@Query(nativeQuery = true)
-	List<Person> findByLastNameIsNative();
+    List<Person> findByLastNameIsNative();
+
+    List<Person> findByLastNameIs();
 }
  

@@ -7,11 +7,11 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
+@NamedNativeQuery(name = "Person.findByLastNameIsNative",
+		query = "SELECT * FROM JPA_PERSONS p WHERE p.last_name = 'aa'",
+		resultClass = Person.class)
+@NamedQuery(name = "Person.findByLastNameIs", query = "select t from Person t where t.lastName = 'aa'")
 @Table(name="JPA_PERSONS")
-//@NamedNativeQuery(name = "Person.findByLastNameIsNative",
-//		query = "SELECT * FROM JPA_PERSONS p WHERE p.last_name = 'aa'",
-//		resultClass = Person.class)
-//@EnableJpaRepositories(namedQueriesLocation = "src/")
 public class Person {
 
 	@Id

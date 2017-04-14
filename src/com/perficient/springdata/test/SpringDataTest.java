@@ -45,8 +45,10 @@ public class SpringDataTest {
 
 	@Test
 	public void testNamedQueries(){
-		List<Person> persons = personRepsotory.findByLastNameIsNative();
-		System.out.println(persons);
+		List<Person> persons1 = personRepsotory.findByLastNameIs();
+		List<Person> persons2 = personRepsotory.findByLastNameIsNative();
+		System.out.println(persons1);
+		System.out.println(persons2);
 	}
 	
 	@Test
@@ -62,11 +64,8 @@ public class SpringDataTest {
 	}
 		
 	/**
-	 * 目标: 实现带查询条件的分页. id > 5 的条件
-	 * 
-	 * 调用 JpaSpecificationExecutor 的 Page<T> findAll(Specification<T> spec, Pageable pageable);
-	 * Specification: 封装了 JPA Criteria 查询的查询条件
-	 * Pageable: 封装了请求分页的信息: 例如 pageNo, pageSize, Sort
+	 * Invoke JpaSpecificationExecutor's Page<T> findAll(Specification<T> spec, Pageable pageable);
+	 * Specification: Encapsulates query conditions for JPA Criteria queries.
 	 */
 	@Test
 	public void testJpaSpecificationExecutor(){
@@ -74,31 +73,30 @@ public class SpringDataTest {
 		int pageSize = 5;
 		PageRequest pageable = new PageRequest(pageNo, pageSize);
 		
-		//通常使用 Specification 的匿名内部类
+		//Use Specification's Anonymous internal classes usually.
 		Specification<Person> specification = new Specification<Person>() {
 			/**
-			 * @param *root: 代表查询的实体类. 
-			 * @param query: 可以从中可到 Root 对象, 即告知 JPA Criteria 查询要查询哪一个实体类. 还可以
-			 * 来添加查询条件, 还可以结合 EntityManager 对象得到最终查询的 TypedQuery 对象. 
-			 * @param *cb: CriteriaBuilder 对象. 用于创建 Criteria 相关对象的工厂. 当然可以从中获取到 Predicate 对象
-			 * @return: *Predicate 类型, 代表一个查询条件. 
+			 * @param *root: entity class.
+			 * @param query:
+			 * @param *cb: CriteriaBuilder Object; Get Predicate Object from here.
+			 * @return: *Predicate. Represents a query condition.
 			 */
 			@Override
 			public Predicate toPredicate(Root<Person> root,
 					CriteriaQuery<?> query, CriteriaBuilder cb) {
 				Path path = root.get("id");
-				Predicate predicate = cb.gt(path, 5);
+				Predicate predicate = cb.gt(path, 5);//Where id > 5
 				return predicate;
 			}
 		};
 		
 		Page<Person> page = personRepsotory.findAll(specification, pageable);
 		
-		System.out.println("总记录数: " + page.getTotalElements());
-		System.out.println("当前第几页: " + (page.getNumber() + 1));
-		System.out.println("总页数: " + page.getTotalPages());
-		System.out.println("当前页面的 List: " + page.getContent());
-		System.out.println("当前页面的记录数: " + page.getNumberOfElements());
+		System.out.println("Total number of records: " + page.getTotalElements());
+		System.out.println("Current page: " + (page.getNumber() + 1));
+		System.out.println("Total number of pages: " + page.getTotalPages());
+		System.out.println("Current page's data: " + page.getContent());
+		System.out.println("Total number of current page: " + page.getNumberOfElements());
 	}
 	
 	@Test
@@ -116,24 +114,23 @@ public class SpringDataTest {
 	
 	@Test
 	public void testPagingAndSortingRespository(){
-		//pageNo 从 0 开始. 
+		//pageNo is start with 0
 		int pageNo = 6 - 1;
 		int pageSize = 5;
-		//Pageable 接口通常使用的其 PageRequest 实现类. 其中封装了需要分页的信息
-		//排序相关的. Sort 封装了排序的信息
-		//Order 是具体针对于某一个属性进行升序还是降序. 
+
 		Order order1 = new Order(Direction.DESC, "id");
 		Order order2 = new Order(Direction.ASC, "email");
 		Sort sort = new Sort(order1, order2);
-		
+
+		//Using PageRequest class in Pageable interface usually.
 		PageRequest pageable = new PageRequest(pageNo, pageSize, sort);
 		Page<Person> page = personRepsotory.findAll(pageable);
 		
-		System.out.println("总记录数: " + page.getTotalElements());
-		System.out.println("当前第几页: " + (page.getNumber() + 1));
-		System.out.println("总页数: " + page.getTotalPages());
-		System.out.println("当前页面的 List: " + page.getContent());
-		System.out.println("当前页面的记录数: " + page.getNumberOfElements());
+		System.out.println("Total number of records: " + page.getTotalElements());
+		System.out.println("Current page: " + (page.getNumber() + 1));
+		System.out.println("Total number of pages: " + page.getTotalPages());
+		System.out.println("Current page's data: " + page.getContent());
+		System.out.println("Total number of current page: " + page.getNumberOfElements());
 	}
 	
 	@Test
