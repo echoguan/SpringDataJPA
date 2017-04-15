@@ -3,7 +3,7 @@ package com.perficient.springdata;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-public class PersonRepsotoryImpl implements PersonDao {
+public class PersonRepositoryImpl implements CustomPersonRepository {
 	
 	@PersistenceContext
 	private EntityManager entityManager;

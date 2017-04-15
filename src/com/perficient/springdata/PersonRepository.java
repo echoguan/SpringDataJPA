@@ -10,9 +10,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 //@RepositoryDefinition(domainClass=Person.class,idClass=Integer.class)
-public interface PersonRepsotory extends
+public interface PersonRepository extends
 	JpaRepository<Person, Integer>,
-	JpaSpecificationExecutor<Person>, PersonDao{
+	JpaSpecificationExecutor<Person>, CustomPersonRepository {
 
 	//Get Person by lastName
 	Person getByLastName(String lastName);

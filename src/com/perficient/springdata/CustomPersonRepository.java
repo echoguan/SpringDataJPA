@@ -1,6 +1,6 @@
 package com.perficient.springdata;
 
-public interface PersonDao {
+public interface CustomPersonRepository {
 	
 	void test();
 	

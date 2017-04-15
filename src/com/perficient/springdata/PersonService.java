@@ -10,15 +10,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class PersonService {
 
 	@Autowired
-	private PersonRepsotory personRepsotory;
+	private PersonRepository personRepository;
 	
 	@Transactional
 	public void savePersons(List<Person> persons){
-		personRepsotory.save(persons);
+		personRepository.save(persons);
 	}
 	
 	@Transactional
 	public void updatePersonEmail(String email, Integer id){
-		personRepsotory.updatePersonEmail(id, email);
+		personRepository.updatePersonEmail(id, email);
 	}
 }
