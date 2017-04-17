@@ -112,7 +112,7 @@ public class SpringDataTest {
 	}
 	
 	@Test
-	public void testPagingAndSortingRespository(){
+	public void testPagingAndSortingRepository(){
 		//pageNo is start with 0
 		int pageNo = 6 - 1;
 		int pageSize = 5;
